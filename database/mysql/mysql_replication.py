@@ -260,13 +260,17 @@ def main():
     if mode in "getmaster":
         status = get_master_status(cursor)
         if not isinstance(status, dict):
-            status = dict(master=False, msg="Server is not configured as mysql master")
+            status = dict(Is_Master=False, msg="Server is not configured as mysql master")
+        else:
+            status['Is_Master'] = True
         module.exit_json(**status)
 
     elif mode in "getslave":
         status = get_slave_status(cursor)
         if not isinstance(status, dict):
-            status = dict(slave=False, msg="Server is not configured as mysql slave")
+            status = dict(Is_Slave=False, msg="Server is not configured as mysql slave")
+        else:
+            status['Is_Slave'] = True
         module.exit_json(**status)
 
     elif mode in "changemaster":
